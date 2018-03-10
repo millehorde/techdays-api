@@ -1,0 +1,31 @@
+{
+  "setupTestFrameworkScriptFile": "<rootDir>/setup_jest.js",
+  "transform": {
+    "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+  },
+  "modulePaths": [
+    "<rootDir>/src/"
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "json"
+  ],
+  "collectCoverageFrom" : [
+    "src/**/*.{js,jsx,tsx,ts}",
+    "!**/node_modules/**",
+    "!**/vendor/**",
+    "!src/**/*.d.ts",
+    "!src/**/*.test.ts",
+    "!src/**/*.e2e-test.ts",
+    "!src/**/*.module.ts",
+    "!src/**/*.dto.ts",
+    "!src/**/*.repository.ts",
+    "!src/common/utils/testing/**/*",
+    "!src/migration/**/*"
+  ],
+  "coverageReporters": ["json", "lcov"],
+  "coverageDirectory": "coverage",
+  "verbose": true
+}
