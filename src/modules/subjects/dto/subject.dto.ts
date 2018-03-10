@@ -1,7 +1,7 @@
-import {EventDto} from '../../events/dto/event.dto';
-import {IsUUID, IsString, ValidateNested} from 'class-validator';
-import {ApiModelProperty} from '@nestjs/swagger';
-import {Type} from 'class-transformer';
+import { ApiModelProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsString, IsUUID, ValidateNested } from 'class-validator';
+import { EventDto } from '../../events/dto/event.dto';
 
 export class SubjectDto {
     @IsUUID('4')
