@@ -1,6 +1,12 @@
-import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import {
+    Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put,
+    UseGuards,
+} from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { UserType } from '../../common/enums/userType.enum';
 import { DtoValidationPipe } from '../../common/pipes/dto-validation.pipe';
+import { AuthGuard } from '../auth/auth.guard';
 import { CreateSubjectInDto } from './dto/create-subject.in.dto';
 import { SubjectDto } from './dto/subject.dto';
 import { UpdateSubjectInDto } from './dto/update-subject.in.dto';
@@ -18,6 +24,8 @@ export class SubjectsController{
         return await this.subjectsService.findAll();
     }
 
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthGuard)
     @Post()
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
     @ApiResponse({ status: HttpStatus.CREATED, description: 'The subject has been successfully created.', type: SubjectDto })
@@ -27,6 +35,8 @@ export class SubjectsController{
         return await this.subjectsService.insert(subjectToInsert);
     }
 
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthGuard)
     @Put(':id')
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
     @ApiResponse({ status: HttpStatus.OK, description: 'The subject has been successfully updated.', type: SubjectDto })
@@ -36,6 +46,8 @@ export class SubjectsController{
         return await this.subjectsService.update(params.id, subjectUpdated);
     }
 
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthGuard)
     @Delete(':id')
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
     @ApiResponse({ status: HttpStatus.OK, description: 'The subject has been successfully deleted.'})
