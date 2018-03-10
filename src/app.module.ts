@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import * as entities from './entities';
+import { AuthModule } from './modules/auth/auth.module';
 import { EventsModule } from './modules/events/events.module';
 import { SubjectsModule } from './modules/subjects/subjects.module';
 import { UsersModule } from './modules/users/users.module';
@@ -21,6 +22,7 @@ import { UsersModule } from './modules/users/users.module';
       SubjectsModule,
       UsersModule,
       EventsModule,
+      AuthModule,
   ],
   controllers: [AppController],
   components: [],

@@ -28,5 +28,5 @@ export async function castToDto<T>(value: object, type: Newable<T>): Promise<T> 
  * @return {Promise<T[]>}
  */
 // export function castToDtoArray<T>(values: object[], type: Newable<T>): Promise<T[]> {
-//   return Promise.all(_.map(values, value => castToDto(value, type)));
+//    return Promise.all(_.map(values, value => castToDto(value, type)));
 // }

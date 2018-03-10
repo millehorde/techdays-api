@@ -16,6 +16,15 @@ export class UsersService {
     }
 
     /**
+     * Get one user by email
+     * @param {string} email
+     * @returns {Promise<UserEntity>} wanted users
+     */
+    async findOneByEmail(email: string): Promise<UserEntity> {
+        return await this.userRepository.findOne({where: {email}});
+    }
+
+    /**
      * Get one user by id
      * @param {string} id
      * @returns {Promise<UserEntity>} wanted user
