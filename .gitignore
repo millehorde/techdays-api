@@ -65,7 +65,10 @@ typings/
 
 # dotenv environment variables file
 .env
-.env.*
+.env.test
+.env.production
+.env.dev
 
 # next.js build output
 .next
+yarn.lock

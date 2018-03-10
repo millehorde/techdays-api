@@ -4,9 +4,9 @@ import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ApplicationModule } from './app.module';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
-import { UncaughtExceptionFilter } from './filters/uncaught-exception.filter';
-import { setupRequestMiddleware } from './middlewares/setup-request.middleware';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { UncaughtExceptionFilter } from './common/filters/uncaught-exception.filter';
+import { setupRequestMiddleware } from './common/middlewares/setup-request.middleware';
 
 async function bootstrap() {
     const port: number = Number(process.env.PORT);

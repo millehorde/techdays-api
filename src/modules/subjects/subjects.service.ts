@@ -1,4 +1,4 @@
-import { Component } from '@nestjs/common';
+import { Component, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SubjectEntity } from './entities/subject.entity';
 import { SubjectRepository } from './subject.repository';
@@ -21,6 +21,10 @@ export class SubjectsService {
 
     async update(subject_id: string, subject: SubjectEntity): Promise<SubjectEntity> {
         const subjectToUpdate = await this.subjectRepository.findOneById(subject_id);
+
+        if (!subjectToUpdate) {
+            throw new NotFoundException();
+        }
 
         Object.keys(subject).forEach((key) => {
             if (key !== 'subject_id') {

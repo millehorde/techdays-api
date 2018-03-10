@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import {UserType} from '../../../common/enums/userType.enum';
-import {getOrDefault} from '../../../common/miscellaneous/misc';
+import { UserType } from '../../../common/enums/userType.enum';
+import { getOrDefault } from '../../../common/miscellaneous/misc';
 
 export interface IUser {
     user_id?: string;
@@ -33,7 +33,7 @@ export class UserEntity {
     @Column({ type: 'int', nullable: false })
     type: UserType;
 
-    @Column({ type: 'date', nullable: false, default: () => 'now()' })
+    @Column({ type: 'date', nullable: false })
     token_boundary: Date;
 
     constructor(copy: IUser = {}) {
