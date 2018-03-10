@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { UserType } from '../../common/enums/userType.enum';
 import { DtoValidationPipe } from '../../common/pipes/dto-validation.pipe';
 import { CreateUserInDto } from './dto/create-user.in.dto';
 import { UpdateUserInDto } from './dto/update-user.in.dto';
@@ -8,6 +9,7 @@ import { UserEntity } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
+@ApiUseTags('Users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
@@ -37,6 +39,19 @@ export class UsersController {
         const userUpdated = new UserEntity(updateUserDto);
 
         return await this.usersService.update(params.id, userUpdated);
+    }
+
+    @Put(':user_id/roles/:role')
+    @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
+    @ApiResponse({ status: HttpStatus.OK, description: 'The user has been successfully updated with new role.', type: UserDto })
+    async changeRole(@Param() params) {
+        if (params.role in UserType) {
+            const userUpdated = new UserEntity({type: params.role});
+
+            return await this.usersService.update(params.user_id, userUpdated);
+        }else {
+            throw new NotFoundException('This role doesn\'t exist.');
+        }
     }
 
     @Delete(':id')

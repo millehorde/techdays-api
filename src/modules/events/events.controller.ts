@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { DtoValidationPipe } from '../../common/pipes/dto-validation.pipe';
 import { CreateEventInDto } from './dto/create-event.in.dto';
 import { EventDto } from './dto/event.dto';
@@ -8,6 +8,7 @@ import { EventEntity } from './entities/event.entity';
 import { EventsService } from './events.service';
 
 @Controller('events')
+@ApiUseTags('Events')
 export class EventsController {
     constructor(private readonly eventsService: EventsService) {}
 

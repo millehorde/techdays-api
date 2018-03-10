@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { DtoValidationPipe } from '../../common/pipes/dto-validation.pipe';
 import { CreateSubjectInDto } from './dto/create-subject.in.dto';
 import { SubjectDto } from './dto/subject.dto';
@@ -8,6 +8,7 @@ import { SubjectEntity } from './entities/subject.entity';
 import { SubjectsService } from './subjects.service';
 
 @Controller('subjects')
+@ApiUseTags('Subjects')
 export class SubjectsController{
     constructor(private readonly subjectsService: SubjectsService) {}
 
