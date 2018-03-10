@@ -22,7 +22,6 @@ import { UsersModule } from './modules/users/users.module';
       SubjectsModule,
       UsersModule,
       EventsModule,
-      AuthModule,
   ],
   controllers: [AppController],
   components: [],

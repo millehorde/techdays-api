@@ -1,5 +1,6 @@
 import { Component, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AuthService } from '../auth/auth.service';
 import { UserEntity } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 
@@ -39,6 +40,7 @@ export class UsersService {
      * @returns {Promise<UserEntity>} user created
      */
     async insert(user: UserEntity): Promise<UserEntity> {
+        user.password = await AuthService.hashPassword(user.password);
         return await this.userRepository.save(user);
     }
 
@@ -55,7 +57,10 @@ export class UsersService {
             throw new NotFoundException();
         }
 
-        Object.keys(user).forEach((key) => {
+        Object.keys(user).forEach(async (key) => {
+            if (key === 'password') {
+                user[key] = await AuthService.hashPassword(user[key]);
+            }
             if (key !== 'user_id') {
                 userToUpdate[key] = user[key];
             }

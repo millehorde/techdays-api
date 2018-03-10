@@ -3,6 +3,8 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import * as moment from 'moment';
 
+import { plainToClass } from 'class-transformer';
+import { CreateUserInDto } from '../users/dto/create-user.in.dto';
 import { UserEntity } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthLoginDto } from './dto/auth-login.dto';
@@ -89,26 +91,41 @@ export class AuthService {
     return moment(user.token_boundary).isBefore(1000 * payload.iat);
   }
 
-  /**
-   * Look for a user account matching the given credentials (email
-   * and password). If any, generate and send back a token. Otherwise,
-   * throw.
-   *
-   * @param loginDto  Credentials used to authenticate.
-   *
-   * @throws {UnauthorizedException} User not found, or password is invalid.
-   */
-  async logIn(loginDto: AuthLoginDto): Promise<TokenDto> {
-    const user = await this.usersService.findOneByEmail(loginDto.email);
-    if (!user) {
-      throw new UnauthorizedException('auth:error.wrongEmailPassword');
+    /**
+     * Look for a user account matching the given credentials (email
+     * and password). If any, generate and send back a token. Otherwise,
+     * throw.
+     *
+     * @param signInDto  Credentials used to authenticate.
+     *
+     * @throws {UnauthorizedException} User not found, or password is invalid.
+     */
+    async signIn(signInDto: AuthLoginDto): Promise<TokenDto> {
+        const user = await this.usersService.findOneByEmail(signInDto.email);
+        if (!user) {
+            throw new UnauthorizedException('auth:error.wrongEmailPassword');
+        }
+
+        const isPasswordMatch = await AuthService.comparePassword(signInDto.password, user.password);
+        if (!isPasswordMatch) {
+            throw new UnauthorizedException('auth:error.wrongEmailPassword');
+        }
+
+        return plainToClass(TokenDto, { token: AuthService.createToken(user) });
     }
 
-    const isPasswordMatch = await AuthService.comparePassword(loginDto.password, user.password);
-    if (!isPasswordMatch) {
-      throw new UnauthorizedException('auth:error.wrongEmailPassword');
-    }
+    /**
+     * Insert a new user and return token for his?
+     *
+     * @param {UserPostInDto} signUpDto data of user to insert
+     *
+     * @returns {Promise<TokenDto>} token of user who just inserted
+     */
+    async signUp(signUpDto: CreateUserInDto): Promise<TokenDto> {
+        const user = new UserEntity(signUpDto);
 
-    return { token: AuthService.createToken(user) };
-  }
+        await this.usersService.insert(user);
+
+        return plainToClass(TokenDto, { token: AuthService.createToken(user) });
+    }
 }

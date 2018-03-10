@@ -1,6 +1,6 @@
-import {Column, Entity, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
-import {getOrDefault} from '../../../common/miscellaneous/misc';
-import {EventEntity} from '../../events/entities/event.entity';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { getOrDefault } from '../../../common/miscellaneous/misc';
+import { EventEntity } from '../../events/entities/event.entity';
 
 export interface ISubject {
     subject_id?: string;

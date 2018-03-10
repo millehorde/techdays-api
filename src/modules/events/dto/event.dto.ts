@@ -1,8 +1,8 @@
-import {ApiModelProperty} from '@nestjs/swagger';
-import {IsUUID, IsString, ValidateNested, MaxLength, IsDate, IsInt, Max, Min} from 'class-validator';
-import {Type} from 'class-transformer';
-import {SubjectDto} from '../../subjects/dto/subject.dto';
-import {UserDto} from '../../users/dto/user.dto';
+import { ApiModelProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsDate, IsInt, IsString, IsUUID, Max, MaxLength, Min, ValidateNested } from 'class-validator';
+import { SubjectDto } from '../../subjects/dto/subject.dto';
+import { UserDto } from '../../users/dto/user.dto';
 
 export class EventDto {
     @IsUUID('4')
@@ -37,6 +37,10 @@ export class EventDto {
     @Type(() => UserDto)
     @ApiModelProperty()
     readonly instructor: UserDto;
+
+    @IsUUID('4')
+    @ApiModelProperty()
+    readonly instructor_id: string;
 
     @ValidateNested()
     @Type(() => SubjectDto)

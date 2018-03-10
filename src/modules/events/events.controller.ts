@@ -1,6 +1,12 @@
-import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import {
+    Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put,
+    UseGuards,
+} from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { UserType } from '../../common/enums/userType.enum';
 import { DtoValidationPipe } from '../../common/pipes/dto-validation.pipe';
+import { AuthGuard } from '../auth/auth.guard';
 import { CreateEventInDto } from './dto/create-event.in.dto';
 import { EventDto } from './dto/event.dto';
 import { UpdateEventInDto } from './dto/update-event.in.dto';
@@ -20,6 +26,8 @@ export class EventsController {
 
     // TODO add user identify by token to instructor
 
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthGuard)
     @Post()
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
     @ApiResponse({ status: HttpStatus.CREATED, description: 'The event has been successfully created.', type: EventDto })
@@ -31,6 +39,8 @@ export class EventsController {
 
     // TODO add user identify by token to instructor
 
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthGuard)
     @Put(':id')
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
     @ApiResponse({ status: HttpStatus.OK, description: 'The event has been successfully updated.', type: EventDto })
@@ -40,6 +50,8 @@ export class EventsController {
         return await this.eventsService.update(params.id, eventUpdated);
     }
 
+    @Roles(UserType.ADMIN)
+    @UseGuards(AuthGuard)
     @Delete(':id')
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
     @ApiResponse({ status: HttpStatus.OK, description: 'The event has been successfully deleted.'})

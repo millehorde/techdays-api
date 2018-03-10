@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Guard, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import * as _ from 'lodash';
-import { UserType } from '../../enums';
+import { UserType } from '../../common/enums/userType.enum';
 import { JWTService } from './jwt/jwt.service';
 
 /**

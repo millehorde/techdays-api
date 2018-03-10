@@ -5,7 +5,7 @@ import { Request } from 'express';
 import * as _ from 'lodash';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { castToDto, castToDtoArray } from '../miscellaneous/dto-casting.tools';
+import { castToDto } from '../miscellaneous/dto-casting.tools';
 import { Newable } from '../miscellaneous/generics-types';
 
 @Interceptor()
