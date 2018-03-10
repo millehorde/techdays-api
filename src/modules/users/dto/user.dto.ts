@@ -1,5 +1,5 @@
 import {ApiModelProperty} from '@nestjs/swagger';
-import {IsUUID, IsEmail, IsString, MaxLength, IsInt, Min, Max, IsDate} from 'class-validator';
+import {IsUUID, IsEmail, IsString, MaxLength, IsDate, IsEnum, Matches} from 'class-validator';
 import {UserType} from '../../../common/enums/userType.enum';
 
 export class UserDto {
@@ -11,6 +11,8 @@ export class UserDto {
     @ApiModelProperty()
     readonly email: string;
 
+    @IsString()
+    @Matches(/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,45}$/, 'i')
     @ApiModelProperty()
     readonly password: string;
 
@@ -24,9 +26,7 @@ export class UserDto {
     @ApiModelProperty()
     readonly last_name: string;
 
-    @IsInt()
-    @Min(0)
-    @Max(2)
+    @IsEnum(UserType)
     @ApiModelProperty()
     readonly type: UserType;
 
