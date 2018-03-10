@@ -7,18 +7,38 @@ import { UserRepository } from './user.repository';
 export class UsersService {
     constructor(@InjectRepository(UserEntity) private readonly userRepository: UserRepository) {}
 
+    /**
+     * Get all user in database
+     * @returns {Promise<UserEntity[]>} list of all users
+     */
     async findAll(): Promise<UserEntity[]> {
         return await this.userRepository.find({});
     }
 
+    /**
+     * Get one user by id
+     * @param {string} id
+     * @returns {Promise<UserEntity>} wanted user
+     */
     async findOneById(id: string): Promise<UserEntity> {
         return await this.userRepository.findOneById(id);
     }
 
+    /**
+     * Create new user
+     * @param {UserEntity} user
+     * @returns {Promise<UserEntity>} user created
+     */
     async insert(user: UserEntity): Promise<UserEntity> {
         return await this.userRepository.save(user);
     }
 
+    /**
+     * Update one user by id
+     * @param {string} user_id
+     * @param {UserEntity} user
+     * @returns {Promise<UserEntity>} updated user
+     */
     async update(user_id: string, user: UserEntity): Promise<UserEntity> {
         const userToUpdate = await this.userRepository.findOneById(user_id);
 
@@ -35,6 +55,11 @@ export class UsersService {
         return await this.userRepository.save(userToUpdate);
     }
 
+    /**
+     * Delete one user by id
+     * @param {string} user_id
+     * @returns {Promise<void>}
+     */
     async delete(user_id: string): Promise<void> {
         return this.userRepository.delete({user_id});
     }

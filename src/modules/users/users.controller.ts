@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { DtoValidationPipe } from '../../common/pipes/dto-validation.pipe';
 import { CreateUserInDto } from './dto/create-user.in.dto';
 import { UpdateUserInDto } from './dto/update-user.in.dto';
@@ -8,6 +8,7 @@ import { UserEntity } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
+@ApiUseTags('Users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
