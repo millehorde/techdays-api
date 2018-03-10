@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import * as entities from './entities';
+import { EventsModule } from './modules/events/events.module';
 import { SubjectsModule } from './modules/subjects/subjects.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { SubjectsModule } from './modules/subjects/subjects.module';
           synchronize: true,
       }),
       SubjectsModule,
+      UsersModule,
+      EventsModule,
   ],
   controllers: [AppController],
   components: [],

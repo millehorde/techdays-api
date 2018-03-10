@@ -17,6 +17,8 @@ export class UsersController {
         return await this.usersService.findAll();
     }
 
+    // TODO remove to pass with AuthModule
+
     @Post()
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
     @ApiResponse({ status: HttpStatus.CREATED, description: 'The user has been successfully created.', type: UserDto })
@@ -25,6 +27,8 @@ export class UsersController {
 
         return await this.usersService.insert(userToInsert);
     }
+
+    // TODO add encryption password when password is updated
 
     @Put(':id')
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
