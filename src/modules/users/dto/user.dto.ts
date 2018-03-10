@@ -1,6 +1,6 @@
-import {ApiModelProperty} from '@nestjs/swagger';
-import {IsUUID, IsEmail, IsString, MaxLength, IsDate, IsEnum, Matches} from 'class-validator';
-import {UserType} from '../../../common/enums/userType.enum';
+import { ApiModelProperty } from '@nestjs/swagger';
+import { IsDate, IsEmail, IsEnum, IsString, IsUUID, Matches, MaxLength } from 'class-validator';
+import { UserType } from '../../../common/enums/userType.enum';
 
 export class UserDto {
     @IsUUID('4')

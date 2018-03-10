@@ -52,6 +52,7 @@
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.4",
     "moment": "^2.21.0",
+    "mysql": "^2.15.0",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "pg": "^7.4.1",
